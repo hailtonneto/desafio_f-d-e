@@ -1,1 +1,12 @@
-./output
+# Executáveis (o seu output)
+output
+output.exe
+*.exe
+*.out
+
+# Ficheiros de objetos e temporários do compilador
+*.o
+*.obj
+
+# Pastas do VS Code
+.vscode/
