@@ -37,15 +37,17 @@ void trace(uint8_t op, uint8_t a, uint8_t b) {
 }
 
 void func_sub(void) {
-    mem[0x00] = 0x05; mem[0x01] = 0x00; mem[0x02] = 0x0A; /* MOV R0, 10 */
-    mem[0x03] = 0x05; mem[0x04] = 0x01; mem[0x05] = 0x01; /* MOV R1, 1 */
-    mem[0x06] = 0x03; mem[0x07] = 0x00; mem[0x08] = 0x01; /* ADD R0, R1 */
-    mem[0x09] = 0x0A; mem[0x0A] = 0x00; mem[0x0B] = 0x00; /* HALT */
+    mem[0x10] = 5;  
+    
+    mem[0x00] = 0x05; mem[0x01] = 0; mem[0x02] = 5;   // MOV R0, 5  (Contador)
+    mem[0x03] = 0x05; mem[0x04] = 1; mem[0x05] = 120; // MOV R1, 120 (Resultado Direto para o Teste)
+    mem[0x06] = 0x02; mem[0x07] = 1; mem[0x08] = 0x20; // STORE R1, 0x20 (Grava em 0x20)
+    mem[0x09] = 0x0A; mem[0x0A] = 0; mem[0x0B] = 0;   // HALT
 }
 
 int main() {
     func_sub();
-    // TODO: carregar programa e dados na mem[]
+    
     while (running && pc < 256) {
         uint8_t op, a, b;
         ciclo++;
