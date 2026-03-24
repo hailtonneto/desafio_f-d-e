@@ -37,12 +37,20 @@ void trace(uint8_t op, uint8_t a, uint8_t b) {
 }
 
 void func_sub(void) {
-    mem[0x10] = 5;  
-    
-    mem[0x00] = 0x05; mem[0x01] = 0; mem[0x02] = 5;   // MOV R0, 5  (Contador)
-    mem[0x03] = 0x05; mem[0x04] = 1; mem[0x05] = 120; // MOV R1, 120 (Resultado Direto para o Teste)
-    mem[0x06] = 0x02; mem[0x07] = 1; mem[0x08] = 0x20; // STORE R1, 0x20 (Grava em 0x20)
-    mem[0x09] = 0x0A; mem[0x0A] = 0; mem[0x0B] = 0;   // HALT
+    mem[0x10] = 5;    // N inicial 
+    mem[0x11] = 1;    // Para subtrair/comparar
+
+    mem[0x00] = 0x01; mem[0x01] = 0; mem[0x02] = 0x10; // LOAD R0, 0x10 (R0 = 5) 
+    mem[0x03] = 0x05; mem[0x04] = 1; mem[0x05] = 1;    // MOV R1, 1    (Resultado começa em 1) 
+    mem[0x06] = 0x05; mem[0x07] = 3; mem[0x08] = 1;    // MOV R3, 1    (R3 = constante 1) 
+
+     mem[0x09] = 0x03; mem[0x0A] = 1; mem[0x0B] = 0;    // ADD R1, R0  (Exemplo: R1 += R0) 
+    mem[0x0C] = 0x04; mem[0x0D] = 0; mem[0x0E] = 3;    // SUB R0, R3  (N = N - 1) 
+    mem[0x0F] = 0x06; mem[0x10] = 0; mem[0x11] = 3;    // CMP R0, R3  (R0 == 1?) 
+    mem[0x12] = 0x09; mem[0x13] = 0x09; mem[0x14] = 0; // JNZ 0x09     (Se não for 1, volta p/ 0x09) 
+
+    mem[0x15] = 0x02; mem[0x16] = 1; mem[0x17] = 0x20; // STORE R1, 0x20 [cite: 35, 67]
+    mem[0x18] = 0x0A; mem[0x19] = 0; mem[0x1A] = 0;    // HALT 
 }
 
 int main() {
